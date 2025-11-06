@@ -88,7 +88,7 @@ public class PlayerStateUI : MonoBehaviour
 
         boosterImage.sprite = passiveSprite;
         wheatImage.sprite = passiveWheatSprite;
-        activeTransform.DOAnchorPosX(-90f, _moveDuration).SetEase(_moveEase);
+        activeTransform.DOAnchorPosX(90f, _moveDuration).SetEase(_moveEase);
     }
     
     public void PlayBoosterUIAnimations(RectTransform activeTransform, Image boosterImage, Image wheatImage,
