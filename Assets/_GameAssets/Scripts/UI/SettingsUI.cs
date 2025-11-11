@@ -36,6 +36,7 @@ public class SettingsUI : MonoBehaviour
         });
     }
 
+    
     private void OnSettingsButtonClicked()
     {
         GameManager.Instance.ChangeGameState(GameState.Pause);
