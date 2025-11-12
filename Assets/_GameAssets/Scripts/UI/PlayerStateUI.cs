@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class PlayerStateUI : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerStateUI : MonoBehaviour
     [SerializeField] private RectTransform _boosterSpeedTransform;
     [SerializeField] private RectTransform _boosterJumpTransform;
     [SerializeField] private RectTransform _boosterSlowTransform;
+    [SerializeField] private PlayableDirector _playableDirector;
 
     [Header("Images")]
     [SerializeField] private Image _goldBoosterWheatImage;
@@ -40,9 +42,21 @@ public class PlayerStateUI : MonoBehaviour
     private Image _playerWalkingImage;
     private Image _playerSlidingImage;
 
+    private void Awake()
+    {
+        _playerWalkingImage = _playerWalkingTransform.GetComponent<Image>();
+        _playerSlidingImage = _playerSlidingTransform.GetComponent<Image>();
+    }
+
     private void Start()
     {
         _playerController.OnplayerStateChanged += PlayerController_OnplayerStateChanged;
+        _playableDirector.stopped += OnTimelineFinished;
+        
+    }
+
+    private void OnTimelineFinished(PlayableDirector director)
+    {
         SetStateUserInterfaces(_playerWalkingActiveSprite, _playerSlidingPassiveSprite, _playerWalkingTransform, _playerSlidingTransform);
     }
 
@@ -63,11 +77,7 @@ public class PlayerStateUI : MonoBehaviour
         }
     }
     
-    private void Awake()
-    {
-        _playerWalkingImage = _playerWalkingTransform.GetComponent<Image>();
-        _playerSlidingImage = _playerSlidingTransform.GetComponent<Image>();
-    }
+    
     private void SetStateUserInterfaces(Sprite playerWalkingSprite, Sprite playerSlidingSprite, RectTransform activeTransform, RectTransform passiveTransform)
     {
         _playerWalkingImage.sprite = playerWalkingSprite;

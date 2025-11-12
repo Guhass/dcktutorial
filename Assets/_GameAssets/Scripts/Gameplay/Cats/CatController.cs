@@ -125,7 +125,6 @@ public class CatController : MonoBehaviour
             }
             if(!destinationSet)
             {
-                Debug.LogWarning("Failed to find a valid destination");
                 _isWaiting = true;
                 _timer = _waitTime * 2;
             }
